@@ -1,0 +1,6 @@
+@MoneyManagerNotificationServiceAPI_HostAddress = http://localhost:5010
+
+GET {{MoneyManagerNotificationServiceAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
