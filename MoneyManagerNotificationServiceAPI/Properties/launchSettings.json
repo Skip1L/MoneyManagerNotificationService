@@ -20,14 +20,20 @@
       }
     },
     "https": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7224;http://localhost:5010",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+        "commandName": "Project",
+        "dotnetRunMessages": true,
+        "launchBrowser": true,
+        "launchUrl": "swagger",
+        "applicationUrl": "https://localhost:6001;http://localhost:6002",
+        "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Development",
+            "From": "baton3245@gmail.com",
+            "Host": "smtp.gmail.com",
+            "Password": "lkqa pnrw joax gkqy ",
+            "Port": "587",
+            "Username": "baton3245@gmail.com"
+        }
+
     },
     "IIS Express": {
       "commandName": "IISExpress",
