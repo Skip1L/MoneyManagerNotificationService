@@ -1,4 +1,4 @@
-﻿using System.Windows.Input;
+﻿using DTOs.CommonDTOs;
 
 namespace DTOs.NotificationDTOs
 {
@@ -10,5 +10,6 @@ namespace DTOs.NotificationDTOs
         public List<CategoryReportDTO> Expenses { get; set; }
         public List<BudgetReportDTO> Budgets { get; set; }
         public TransactionsSummaryDTO TransactionsSummary { get; set; }
+        public DateRangeFilter DateRange { get; set; }
     }
 }
