@@ -1,18 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113
+VisualStudioVersion = 17.12.35527.113 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyManagerNotificationServiceAPI", "MoneyManagerNotificationServiceAPI.csproj", "{CE88A5C8-9425-41D6-92DB-05F35B369D45}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "..\Application\Application.csproj", "{8370CF52-10E1-4803-9CDF-213C2D63A6BD}"
-	ProjectSection(ProjectDependencies) = postProject
-		{8CC953F4-29E5-4A62-B46E-DA266A0518E8} = {8CC953F4-29E5-4A62-B46E-DA266A0518E8}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "..\Services\Services.csproj", "{8CC953F4-29E5-4A62-B46E-DA266A0518E8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTOs", "..\DTOs\DTOs.csproj", "{2B292351-C895-4EE1-AA00-967BE3BE3E02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,18 +15,6 @@ Global
 		{CE88A5C8-9425-41D6-92DB-05F35B369D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE88A5C8-9425-41D6-92DB-05F35B369D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE88A5C8-9425-41D6-92DB-05F35B369D45}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8370CF52-10E1-4803-9CDF-213C2D63A6BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8370CF52-10E1-4803-9CDF-213C2D63A6BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8370CF52-10E1-4803-9CDF-213C2D63A6BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8370CF52-10E1-4803-9CDF-213C2D63A6BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8CC953F4-29E5-4A62-B46E-DA266A0518E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8CC953F4-29E5-4A62-B46E-DA266A0518E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8CC953F4-29E5-4A62-B46E-DA266A0518E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8CC953F4-29E5-4A62-B46E-DA266A0518E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B292351-C895-4EE1-AA00-967BE3BE3E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B292351-C895-4EE1-AA00-967BE3BE3E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B292351-C895-4EE1-AA00-967BE3BE3E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B292351-C895-4EE1-AA00-967BE3BE3E02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
