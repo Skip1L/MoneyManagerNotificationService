@@ -5,9 +5,9 @@ namespace Application.Commands
 {
     public class SendWeeklyReportCommand : ICommand<bool>
     {
-        public AnalyticEmailRequestDTO AnalyticEmailRequestDTO { get; set; }
+        public List<AnalyticEmailRequestDTO> AnalyticEmailRequestDTO { get; set; }
 
-        public SendWeeklyReportCommand(AnalyticEmailRequestDTO analyticEmailRequestDTO)
+        public SendWeeklyReportCommand(List<AnalyticEmailRequestDTO> analyticEmailRequestDTO)
         {
             AnalyticEmailRequestDTO = analyticEmailRequestDTO;
         }

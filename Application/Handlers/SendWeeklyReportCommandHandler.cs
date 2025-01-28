@@ -17,15 +17,17 @@ namespace Application.Handlers
             _emailService = emailService;
         }
 
-        public async Task<bool> Handle(SendWeeklyReportCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(SendWeeklyReportCommand requests, CancellationToken cancellationToken)
         {
             bool allEmailsSent = true;
+            // Generate email body using the template generator
 
+            foreach (var request in requests.AnalyticEmailRequestDTO)
             {
-                var emailBody = AnalyticEmailTemplateGenerator.GenerateEmailBody(request.AnalyticEmailRequestDTO);
+                var emailBody = AnalyticEmailTemplateGenerator.GenerateEmailBody(request);
 
                 // Send the email
-                var result = await _emailService.SendEmailAsync(request.AnalyticEmailRequestDTO.ToEmail, request.AnalyticEmailRequestDTO.RecipientName, "Weekly Analytics Report", emailBody, cancellationToken);
+                var result = await _emailService.SendEmailAsync(request.ToEmail, request.RecipientName, "Weekly Analytics Report", emailBody, cancellationToken);
 
                 if (!result)
                 {

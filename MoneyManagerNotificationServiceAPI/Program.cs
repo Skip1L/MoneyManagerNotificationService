@@ -1,5 +1,7 @@
 using System.Net;
 using System.Net.Mail;
+using System.Reflection.Metadata;
+using System.Windows.Input;
 using Application.Commands;
 using Application.Common;
 using Application.Handlers;
@@ -8,14 +10,16 @@ using DTOs.NotificationDTOs;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using Services.Services;
+using Services.TemplateGenerators;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/
+builder.Services.AddSingleton<SendWeeklyReportCommandHandler>();
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
-builder.Services.AddTransient<ICommandHandler<SendWeeklyReportCommand, bool>, SendWeeklyReportCommandHandler>();
+builder.Services.AddSingleton<ICommandHandler<SendWeeklyReportCommand, bool>, SendWeeklyReportCommandHandler>();
 builder.Services.AddTransient(sp =>
 {
     var smtpClient = new SmtpClient(Environment.GetEnvironmentVariable("Host"))
@@ -42,7 +46,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/send-weekly-reports", async (ICommandDispatcher dispatcher, [FromBody] AnalyticEmailRequestDTO requests, CancellationToken cancellationToken) =>
+app.MapPost("/send-weekly-reports", async (ICommandDispatcher dispatcher, [FromBody] List<AnalyticEmailRequestDTO> requests, CancellationToken cancellationToken) =>
 {
     var command = new SendWeeklyReportCommand(requests);
     bool allEmailsSent = await dispatcher.Dispatch(command, cancellationToken);
