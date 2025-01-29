@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Persistence.Commands.EmailCommands;
+using Services.Enums;
 using Services.Interfaces;
 using Services.TemplateGenerators;
 
@@ -14,8 +15,8 @@ namespace Persistence.Handlers
             var emailBody = new AnalyticEmailBuilder()
                 .AddHeader()
                 .AddDateRange(request.DateRange.From.ToString(), request.DateRange.To.ToString())
-                .AddCategoryTable(request.Incomes, "Incomes")
-                .AddCategoryTable(request.Expenses, "Expenses")
+                .AddCategoryTable(request.Incomes, CategoryType.Income)
+                .AddCategoryTable(request.Expenses, CategoryType.Expense)
                 .AddBudgetTable(request.Budgets)
                 .AddTransactionSummary(request.TransactionsSummary)
                 .Build();

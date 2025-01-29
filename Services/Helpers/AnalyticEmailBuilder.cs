@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using DTOs.NotificationDTOs;
+using Services.Enums;
 
 namespace Services.TemplateGenerators
 {
@@ -45,9 +46,9 @@ namespace Services.TemplateGenerators
             return this;
         }
 
-        public AnalyticEmailBuilder AddCategoryTable(List<CategoryReportDTO> categoryReports, string tableType)
+        public AnalyticEmailBuilder AddCategoryTable(List<CategoryReportDTO> categoryReports, CategoryType categoryType)
         {
-            var populatedTable = BuildCategoryTable(_categoryTableTemplate, categoryReports, tableType);
+            var populatedTable = BuildCategoryTable(_categoryTableTemplate, categoryReports, categoryType);
             _stringBuilder.AppendLine(populatedTable);
             return this;
         }
@@ -75,9 +76,9 @@ namespace Services.TemplateGenerators
             return _mainTemplate.Replace("{Content}", _stringBuilder.ToString());
         }
 
-        private static string BuildCategoryTable(string template, List<CategoryReportDTO> categoryReports, string tableType)
+        private static string BuildCategoryTable(string template, List<CategoryReportDTO> categoryReports, CategoryType categoryType)
         {
-            var tableTitle = tableType.Equals("Incomes", StringComparison.OrdinalIgnoreCase) ? "Incomes" : "Expenses";
+            var tableTitle = categoryType == CategoryType.Income ? "Incomes" : "Expenses";
             var rows = new StringBuilder();
             foreach (var category in categoryReports)
             {
