@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Persistence.Authentication;
 using Persistence.Commands.EmailCommands;
 
 namespace Persistence.Endpoints
@@ -13,7 +14,7 @@ namespace Persistence.Endpoints
             {
                 var result = await sender.Send(request);
                 return Results.Ok(result);
-            });
+            }).AddEndpointFilter<ApiKeyEndpointsFilter>();
 
             return app;
         }
