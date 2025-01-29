@@ -5,19 +5,13 @@ using Services.TemplateGenerators;
 
 namespace Persistence.Handlers
 {
-    public class SendWeeklyReportCommandHandler : IRequestHandler<SendWeeklyReportCommand, bool>
+    public class SendWeeklyReportCommandHandler(IEmailService emailService) : IRequestHandler<SendWeeklyReportCommand, bool>
     {
-        private readonly IEmailService _emailService;
-
-        public SendWeeklyReportCommandHandler(IEmailService emailService)
-        {
-            _emailService = emailService;
-        }
+        private readonly IEmailService _emailService = emailService;
 
         public async Task<bool> Handle(SendWeeklyReportCommand request, CancellationToken cancellationToken)
         {
-            var emailBuilder = new AnalyticEmailBuilder();
-            var emailBody = emailBuilder
+            var emailBody = new AnalyticEmailBuilder()
                 .AddHeader()
                 .AddDateRange(request.DateRange.From.ToString(), request.DateRange.To.ToString())
                 .AddCategoryTable(request.Incomes, "Incomes")
@@ -26,9 +20,7 @@ namespace Persistence.Handlers
                 .AddTransactionSummary(request.TransactionsSummary)
                 .Build();
 
-            var result = await _emailService.SendEmailAsync(request.ToEmail, request.RecipientName, "Analytics Report", emailBody, cancellationToken);
-
-            return result;
+            return await _emailService.SendEmailAsync(request.ToEmail, request.RecipientName, "Analytics Report", emailBody, cancellationToken);
         }
     }
 }

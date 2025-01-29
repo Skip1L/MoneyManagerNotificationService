@@ -1,7 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Persistence.Authentication;
 using Persistence.Commands.EmailCommands;
 
-namespace MoneyManagerNotificationServiceAPI.Endpoints
+namespace Persistence.Endpoints
 {
     public static class EmailEndpoints
     {
@@ -11,7 +14,7 @@ namespace MoneyManagerNotificationServiceAPI.Endpoints
             {
                 var result = await sender.Send(request);
                 return Results.Ok(result);
-            });
+            }).AddEndpointFilter<ApiKeyEndpointsFilter>();
 
             return app;
         }

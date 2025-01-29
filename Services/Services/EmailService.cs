@@ -7,7 +7,7 @@ namespace Services.Services
     public class EmailService : IEmailService
     {
         private readonly SmtpClient _smtpClient;
-        private readonly string _fromEmail = "baton3245@gmail.com";
+        private const string _fromEmail = "baton3245@gmail.com";
 
         public EmailService(SmtpClient smtpClient)
         {

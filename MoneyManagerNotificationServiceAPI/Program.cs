@@ -1,10 +1,11 @@
 using System.Net;
 using System.Net.Mail;
+using Microsoft.OpenApi.Models;
 using MoneyManagerNotificationServiceAPI.Middlewares;
 using Persistence.Commands.EmailCommands;
+using Persistence.Endpoints;
 using Services.Interfaces;
 using Services.Services;
-using MoneyManagerNotificationServiceAPI.Endpoints;
 
 
 var builder = WebApplication.CreateBuilder(args);
