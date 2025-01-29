@@ -13,9 +13,9 @@ namespace MoneyManagerNotificationServiceAPI.Middlewares
             _configuration = configuration;
         }
 
-        public async Task InvokeAsynk(HttpContext context)
+        public async Task InvokeAsync(HttpContext context)
         {
-            if (!context.Request.Headers.TryGetValue(AuthConstants.ApiKeySectionName, out var expectedApiKey))
+            if (!context.Request.Headers.TryGetValue(AuthConstants.ApiKeyHeaderName, out var expectedApiKey))
             {
                 context.Response.StatusCode = 401;
                 await context.Response.WriteAsync("API key missing");
