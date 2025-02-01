@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyManagerNotificationServiceAPI", "MoneyManagerNotificationServiceAPI.csproj", "{CE88A5C8-9425-41D6-92DB-05F35B369D45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTOs", "..\DTOs\DTOs.csproj", "{FA1668C7-6100-4DED-8552-4DA092371AFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "..\Persistence\Persistence.csproj", "{15145AFD-2DB5-47DA-ACCC-094F261B40C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "..\Services\Services.csproj", "{519D4262-1816-4BBF-A170-4980CD50819A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{CE88A5C8-9425-41D6-92DB-05F35B369D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE88A5C8-9425-41D6-92DB-05F35B369D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE88A5C8-9425-41D6-92DB-05F35B369D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA1668C7-6100-4DED-8552-4DA092371AFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA1668C7-6100-4DED-8552-4DA092371AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA1668C7-6100-4DED-8552-4DA092371AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA1668C7-6100-4DED-8552-4DA092371AFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15145AFD-2DB5-47DA-ACCC-094F261B40C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15145AFD-2DB5-47DA-ACCC-094F261B40C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15145AFD-2DB5-47DA-ACCC-094F261B40C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15145AFD-2DB5-47DA-ACCC-094F261B40C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{519D4262-1816-4BBF-A170-4980CD50819A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{519D4262-1816-4BBF-A170-4980CD50819A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{519D4262-1816-4BBF-A170-4980CD50819A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{519D4262-1816-4BBF-A170-4980CD50819A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
