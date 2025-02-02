@@ -15,14 +15,19 @@ namespace Persistence.Authentication
 
         void IAuthorizationFilter.OnAuthorization(AuthorizationFilterContext context)
         {
+            var apiKey = _configuration.GetValue<string>(AuthConstants.ApiKeySectionName);
+
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                return;
+            }
+
             if (!context.HttpContext.Request.Headers.TryGetValue(AuthConstants.ApiKeySectionName, out var expectedApiKey))
             {
                 context.Result = new UnauthorizedObjectResult("API Key missing");
             }
-            
-            var apiKey = _configuration.GetValue<string>(AuthConstants.ApiKeySectionName);
 
-            if (apiKey == null || !apiKey.Equals(expectedApiKey))
+            if (!apiKey.Equals(expectedApiKey))
             {
                 context.Result = new UnauthorizedObjectResult("Invalid API Key");
             }

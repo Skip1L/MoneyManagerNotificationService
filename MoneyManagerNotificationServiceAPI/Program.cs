@@ -36,22 +36,22 @@ builder.Services.AddSwaggerGen(conf => {
         In = ParameterLocation.Header,
         Scheme = "ApiKeyScheme"
     });
-    var scheme = new OpenApiSecurityScheme
-    {
-        Reference = new OpenApiReference
-        {
-            Type = ReferenceType.SecurityScheme,
-            Id = "ApiKey"
-        },
-        In = ParameterLocation.Header
-    };
-    var requirement = new OpenApiSecurityRequirement
+
+    conf.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
-            scheme, new List<string>()
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "ApiKey"
+                },
+                In = ParameterLocation.Header
+            },
+            new List<string>()
         }
-    };
-    conf.AddSecurityRequirement(requirement);
+    });
 });
 
 var app = builder.Build();

@@ -15,6 +15,14 @@ namespace MoneyManagerNotificationServiceAPI.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
+            var apiKey = _configuration.GetValue<string>(AuthConstants.ApiKeySectionName);
+
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                await _next(context);
+                return;
+            }
+
             if (!context.Request.Headers.TryGetValue(AuthConstants.ApiKeyHeaderName, out var expectedApiKey))
             {
                 context.Response.StatusCode = 401;
@@ -22,9 +30,7 @@ namespace MoneyManagerNotificationServiceAPI.Middlewares
                 return;
             }
 
-            var apiKey = _configuration.GetValue<string>(AuthConstants.ApiKeySectionName);
-
-            if (apiKey == null || !apiKey.Equals(expectedApiKey))
+            if (!apiKey.Equals(expectedApiKey))
             {
                 context.Response.StatusCode = 401;
                 await context.Response.WriteAsync("Invalid API Key");

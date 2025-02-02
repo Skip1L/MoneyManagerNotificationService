@@ -15,14 +15,19 @@ namespace Persistence.Authentication
 
         public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
         {
+            var apiKey = _configuration.GetValue<string>(AuthConstants.ApiKeySectionName);
+
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                return await next(context);
+            }
+
             if (!context.HttpContext.Request.Headers.TryGetValue(AuthConstants.ApiKeyHeaderName, out var expectedApiKey))
             {
                 return new UnauthorizedHttpObjectResult("API Key missing");
             }
 
-            var apiKey = _configuration.GetValue<string>(AuthConstants.ApiKeySectionName);
-
-            if (apiKey == null || !apiKey.Equals(expectedApiKey))
+            if (!apiKey.Equals(expectedApiKey))
             {
                 return new UnauthorizedHttpObjectResult("Invalid API Key");
             }
