@@ -16,25 +16,17 @@ namespace Services.Services
 
         public async Task<bool> SendEmailAsync(string toEmail, string recipientName, string subject, string body, CancellationToken cancellationToken)
         {
-            try
+            var mailMessage = new MailMessage
             {
-                var mailMessage = new MailMessage
-                {
-                    From = new MailAddress(_fromEmail),
-                    Body = body,
-                    IsBodyHtml = true
-                };
+                From = new MailAddress(_fromEmail),
+                Body = body,
+                IsBodyHtml = true
+            };
 
-                mailMessage.To.Add(new MailAddress(toEmail));
+            mailMessage.To.Add(new MailAddress(toEmail));
 
-                await _smtpClient.SendMailAsync(mailMessage);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message.ToString());
-                return false;
-            }
+            await _smtpClient.SendMailAsync(mailMessage);
+            return true;
         }
     }
 }

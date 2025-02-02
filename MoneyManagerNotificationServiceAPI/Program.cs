@@ -27,7 +27,32 @@ builder.Services.AddMediatR(config =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(conf => {
+    conf.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+    {
+        Description = "The API key to access the API",
+        Type = SecuritySchemeType.ApiKey,
+        Name = "x-api-key",
+        In = ParameterLocation.Header,
+        Scheme = "ApiKeyScheme"
+    });
+
+    conf.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "ApiKey"
+                },
+                In = ParameterLocation.Header
+            },
+            new List<string>()
+        }
+    });
+});
 
 var app = builder.Build();
 
@@ -37,6 +62,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ApiKeyAuthMiddleware>();
 app.UseMiddleware<ExceptionsMiddleware>();
 
 app.UseHttpsRedirection();
