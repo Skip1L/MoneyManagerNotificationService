@@ -10,11 +10,9 @@
   },
   "profiles": {
     "https": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:6001;http://localhost:6002",
+        "applicationUrl": "https://localhost:6001;http://localhost:6002",
+        "commandName": "Project",
+        "dotnetRunMessages": true,
         "environmentVariables": {
             "ASPNETCORE_ENVIRONMENT": "Development",
             "From": "baton3245@gmail.com",
@@ -22,7 +20,10 @@
             "Password": "lkqa pnrw joax gkqy ",
             "Port": "587",
             "Username": "baton3245@gmail.com"
-        }
+        },
+        "externalUrlConfiguration": true,
+        "launchBrowser": true,
+        "launchUrl": "swagger"
     }
   }
 }
