@@ -10,4 +10,14 @@
     <ProjectReference Include="..\DTOs\DTOs.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Protobuf Include="Protos\Email.proto" GrpcServices="Server" />
+	</ItemGroup>
+
+	<ItemGroup>
+  	<PackageReference Include="AutoMapper" Version="13.0.1" />
+  	<PackageReference Include="Grpc.AspNetCore" Version="2.67.0" />
+  	<PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.67.0" />
+  </ItemGroup>
+
 </Project>

@@ -5,12 +5,12 @@ using MoneyManagerNotificationServiceAPI.Middlewares;
 using Persistence.Commands.EmailCommands;
 using Persistence.Endpoints;
 using Services.Interfaces;
+using Services.Mapping;
 using Services.Services;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IEmailService, HttpEmailService>();
 builder.Services.AddTransient(sp =>
 {
     return new SmtpClient(Environment.GetEnvironmentVariable("Host"))
@@ -25,6 +25,11 @@ builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssembly(typeof(SendWeeklyReportCommand).Assembly);
 });
+
+builder.Services.AddGrpc();
+builder.Services.AddGrpcReflection();
+
+builder.Services.AddAutoMapper(typeof(GrpcMappingProfile));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(conf => {
@@ -61,6 +66,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapGrpcService<GrpcEmailService>();
+app.MapGrpcReflectionService();
 
 app.UseMiddleware<ApiKeyAuthMiddleware>();
 app.UseMiddleware<ExceptionsMiddleware>();
