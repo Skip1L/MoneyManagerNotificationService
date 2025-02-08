@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Mail;
+using MassTransit;
 using Microsoft.OpenApi.Models;
 using MoneyManagerNotificationServiceAPI.Middlewares;
 using Persistence.Commands.EmailCommands;
@@ -24,6 +25,25 @@ builder.Services.AddTransient(sp =>
 builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssembly(typeof(SendWeeklyReportCommand).Assembly);
+});
+
+builder.Services.AddMassTransit(m =>
+{
+    m.SetKebabCaseEndpointNameFormatter();
+    m.AddConsumer<AnalyticEmailCreatedConsumer>();
+
+    m.UsingRabbitMq((ctx, cfg) =>
+    {
+        cfg.Host("localhost", "/", c =>
+        {
+            c.Username("guest");
+            c.Password("guest");
+        });
+        cfg.ReceiveEndpoint("analytic-email-created", e =>
+        {
+            e.ConfigureConsumer<AnalyticEmailCreatedConsumer>(ctx);
+        });
+    });
 });
 
 builder.Services.AddGrpc();
@@ -70,7 +90,7 @@ if (app.Environment.IsDevelopment())
 app.MapGrpcService<GrpcEmailService>();
 app.MapGrpcReflectionService();
 
-app.UseMiddleware<ApiKeyAuthMiddleware>();
+//app.UseMiddleware<ApiKeyAuthMiddleware>();
 app.UseMiddleware<ExceptionsMiddleware>();
 
 app.UseHttpsRedirection();
