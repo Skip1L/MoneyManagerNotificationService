@@ -1,16 +1,17 @@
 using System.Net;
 using System.Net.Mail;
+using MassTransit;
 using Microsoft.OpenApi.Models;
 using MoneyManagerNotificationServiceAPI.Middlewares;
 using Persistence.Commands.EmailCommands;
 using Persistence.Endpoints;
 using Services.Interfaces;
+using Services.Mapping;
 using Services.Services;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IEmailService, HttpEmailService>();
 builder.Services.AddTransient(sp =>
 {
     return new SmtpClient(Environment.GetEnvironmentVariable("Host"))
@@ -25,6 +26,30 @@ builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssembly(typeof(SendWeeklyReportCommand).Assembly);
 });
+
+builder.Services.AddMassTransit(m =>
+{
+    m.SetKebabCaseEndpointNameFormatter();
+    m.AddConsumer<AnalyticEmailCreatedConsumer>();
+
+    m.UsingRabbitMq((ctx, cfg) =>
+    {
+        cfg.Host("localhost", "/", c =>
+        {
+            c.Username("guest");
+            c.Password("guest");
+        });
+        cfg.ReceiveEndpoint("analytic-email-created", e =>
+        {
+            e.ConfigureConsumer<AnalyticEmailCreatedConsumer>(ctx);
+        });
+    });
+});
+
+builder.Services.AddGrpc();
+builder.Services.AddGrpcReflection();
+
+builder.Services.AddAutoMapper(typeof(GrpcMappingProfile));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(conf => {
@@ -62,7 +87,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<ApiKeyAuthMiddleware>();
+app.MapGrpcService<GrpcEmailService>();
+app.MapGrpcReflectionService();
+
+//app.UseMiddleware<ApiKeyAuthMiddleware>();
 app.UseMiddleware<ExceptionsMiddleware>();
 
 app.UseHttpsRedirection();
