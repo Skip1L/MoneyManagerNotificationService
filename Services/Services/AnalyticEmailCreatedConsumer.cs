@@ -11,10 +11,9 @@ namespace Services.Services
     {
         private readonly ILogger<AnalyticEmailCreatedConsumer> _logger = logger;
         private readonly IEmailService _emailService = emailService;
+
         public async Task Consume(ConsumeContext<AnalyticEmailCreated> context)
         {
-            _logger.LogInformation("Receive Message");
-
             var emailBody = new AnalyticEmailBuilder()
                 .AddHeader()
                 .AddDateRange(context.Message.DateRange.From.ToString(), context.Message.DateRange.To.ToString())

@@ -1,17 +1,13 @@
 ﻿using System.Net.Mail;
+using Services.Configs;
 using Services.Interfaces;
 
 namespace Services.Services
 {
-    public class HttpEmailService : IEmailService
+    public class EmailService(SmtpClient smtpClient, SmtpConfig smtpConfig) : IEmailService
     {
-        private readonly SmtpClient _smtpClient;
-        private const string _fromEmail = "baton3245@gmail.com";
-
-        public HttpEmailService(SmtpClient smtpClient)
-        {
-            _smtpClient = smtpClient;
-        }
+        private readonly SmtpClient _smtpClient = smtpClient;
+        private readonly string _fromEmail = smtpConfig.From;
 
         public async Task<bool> SendEmailAsync(string toEmail, string recipientName, string subject, string body, CancellationToken cancellationToken)
         {

@@ -13,7 +13,12 @@
 	<ItemGroup>
 		<Protobuf Include="Protos\Email.proto" GrpcServices="Server" />
 	</ItemGroup>
+	<ItemGroup>
 
+		<Content Include="Helpers\EmailTemplates\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 	<ItemGroup>
   	<PackageReference Include="AutoMapper" Version="13.0.1" />
   	<PackageReference Include="Grpc.AspNetCore" Version="2.67.0" />
