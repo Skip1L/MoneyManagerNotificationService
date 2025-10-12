@@ -1,6 +1,7 @@
-﻿using System.Text;
-using DTOs.NotificationDTOs;
+﻿using DTOs.NotificationDTOs;
 using Services.Enums;
+using System.Reflection;
+using System.Text;
 
 namespace Services.TemplateGenerators
 {
@@ -22,12 +23,16 @@ namespace Services.TemplateGenerators
 
         static AnalyticEmailBuilder()
         {
-            _mainTemplate = File.ReadAllText($"..\\Services\\Helpers\\EmailTemplates\\AnalyticEmailTemplate.html");
-            _headerTemplate = File.ReadAllText($"..\\Services\\Helpers\\EmailTemplates\\header-template.html");
-            _dateRangeTemplate = File.ReadAllText($"..\\Services\\Helpers\\EmailTemplates\\date-range-template.html");
-            _categoryTableTemplate = File.ReadAllText($"..\\Services\\Helpers\\EmailTemplates\\category-table-template.html");
-            _budgetTableTemplate = File.ReadAllText($"..\\Services\\Helpers\\EmailTemplates\\budget-table-template.html");
-            _transactionSummaryTemplate = File.ReadAllText($"..\\Services\\Helpers\\EmailTemplates\\transaction-summary-template.html");
+            var assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            var assemblyDirectory = Path.GetDirectoryName(assemblyLocation);
+            var templatesPath = Path.Combine(assemblyDirectory, "Helpers", "EmailTemplates");
+
+            _mainTemplate = File.ReadAllText(Path.Combine(templatesPath, "AnalyticEmailTemplate.html"));
+            _headerTemplate = File.ReadAllText(Path.Combine(templatesPath, "header-template.html"));
+            _dateRangeTemplate = File.ReadAllText(Path.Combine(templatesPath, "date-range-template.html"));
+            _categoryTableTemplate = File.ReadAllText(Path.Combine(templatesPath, "category-table-template.html"));
+            _budgetTableTemplate = File.ReadAllText(Path.Combine(templatesPath, "budget-table-template.html"));
+            _transactionSummaryTemplate = File.ReadAllText(Path.Combine(templatesPath, "transaction-summary-template.html"));
         }
 
         public AnalyticEmailBuilder AddHeader()

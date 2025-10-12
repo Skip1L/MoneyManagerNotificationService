@@ -14,9 +14,8 @@
 		<Protobuf Include="Protos\Email.proto" GrpcServices="Server" />
 	</ItemGroup>
 	<ItemGroup>
-
-		<Content Include="Helpers\EmailTemplates\**">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Include="Helpers\EmailTemplates\*.html">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
